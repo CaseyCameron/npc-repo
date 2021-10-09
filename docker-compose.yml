@@ -8,8 +8,10 @@ services:
     depends_on:
       - db
     environment:  
-      DATABASE_URL: "postgres://db/alchemy"
-      POSTGRES_PASSWORD: 'password'
+      # DATABASE_URL: "postgres://db/alchemy"
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       REQUIRE_SSL: false
 
   db:
