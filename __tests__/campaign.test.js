@@ -11,22 +11,21 @@ describe('demo routes', () => {
   // });
 
   beforeAll(() => {
-    return db.sync({ force: true });
+    return db.sync({ force: true })
+      .then(() => {
+        User.create({ email: 'testMaster@gamemaster.com' });
+      });
   });
 
   it('POSTs a campaign', async () => {
-    const user = await User.create({
-      email: 'testMaster@gamemaster.com'
-    });
-
     const res = await request(app)
       .post('/api/v1/campaigns')
       .send({
         name: 'Test Campaign',
         description: 'Test description',
         image: 'https://cdn.discordapp.com/attachments/716731135501271101/871626952958672956/2Q.png',
-        gameMaster: user.email,
-        userId: user.id
+        gameMaster: 'testMaster@gamemaster.com',
+        userId: 1
       });
     expect(res.body).toEqual({ id: 1, ...res.body });
   });
